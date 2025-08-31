@@ -69,7 +69,11 @@ namespace WatchHeartRateReceiver
                     {
                         try
                         {
-                            latestDevice = args.Advertisement.LocalName ?? "未知设备";
+                            latestDevice = args.Advertisement.LocalName;
+                            if (string.IsNullOrEmpty(latestDevice))
+                            {
+                                latestDevice = "未知设备名";
+                            }
                             latestDeviceMacLong = args.BluetoothAddress;
                             latestDeviceMac = string.Join(":",
                                 BitConverter.GetBytes(args.BluetoothAddress)
@@ -103,7 +107,11 @@ namespace WatchHeartRateReceiver
                             }
 
                             // 获取设备名和地址
-                            latestDevice = args.Advertisement.LocalName ?? "未知设备";
+                            latestDevice = args.Advertisement.LocalName;
+                            if (string.IsNullOrEmpty(latestDevice))
+                            {
+                                latestDevice = "未知设备名";
+                            }
                             latestDeviceMacLong = args.BluetoothAddress;
                             latestDeviceMac = string.Join(":",
                                 BitConverter.GetBytes(args.BluetoothAddress)
@@ -159,7 +167,11 @@ namespace WatchHeartRateReceiver
                             }
 
                             // 获取设备名和地址
-                            latestDevice = args.Advertisement.LocalName ?? "未知设备";
+                            latestDevice = args.Advertisement.LocalName;
+                            if (string.IsNullOrEmpty(latestDevice))
+                            {
+                                latestDevice = "未知设备名";
+                            }
                             latestDeviceMacLong = args.BluetoothAddress;
                             latestDeviceMac = string.Join(":",
                                 BitConverter.GetBytes(args.BluetoothAddress)
@@ -266,9 +278,9 @@ namespace WatchHeartRateReceiver
                 }else if(mode == mode_scan)
                 {
                     //tabControl.SelectedIndex = 2;
-                    if (latestDevice != null)
+                    if (latestDeviceLongName==device_selected)
                     {
-                        DeviceNameText.Text = latestDevice ?? "未知设备";
+                        DeviceNameText.Text = latestDevice;
                         if(latestHeartRate != 0)
                         {
                             HeartRateText.Text = $"{latestHeartRate} bpm";
