@@ -201,7 +201,13 @@ namespace WatchHeartRateReceiver
         {
             try
             {
-                if (args.Advertisement.LocalName + " - " + args.BluetoothAddress != device_selected) return;
+                string add= latestDeviceMac = string.Join(":",
+                                BitConverter.GetBytes(args.BluetoothAddress)
+                                            .Reverse()
+                                            .Take(6)
+                                            .Select(b => b.ToString("X2"))
+                            );
+                if (args.Advertisement.LocalName + " - " + add != device_selected) return;
                 if (devices.ContainsKey(args.BluetoothAddress)) return;
                 var device = await BluetoothLEDevice.FromBluetoothAddressAsync(args.BluetoothAddress);
                 if (device == null) return;
